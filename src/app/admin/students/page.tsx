@@ -21,10 +21,30 @@ export default function AdminStudents() {
   const [students, setStudents] = useState<Student[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [password, setPassword] = useState('')
+  const [authError, setAuthError] = useState('')
+
+  const ADMIN_PASSWORD = "admin2024"
 
   useEffect(() => {
-    fetchStudents()
-  }, [])
+    if (isAuthenticated) {
+      fetchStudents()
+    } else {
+      setLoading(false)
+    }
+  }, [isAuthenticated])
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (password === ADMIN_PASSWORD) {
+      setIsAuthenticated(true)
+      setAuthError('')
+      setLoading(true)
+    } else {
+      setAuthError('Неверный пароль')
+    }
+  }
 
   const fetchStudents = async () => {
     try {
@@ -45,6 +65,59 @@ export default function AdminStudents() {
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString('ru-RU')
+  }
+
+  // Экран авторизации
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-bold text-gray-800 mb-2">🔐 Админ-панель</h1>
+            <p className="text-gray-600">Введите пароль для доступа</p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                Пароль
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Введите пароль"
+                required
+              />
+            </div>
+
+            {authError && (
+              <div className="text-red-600 text-sm text-center">
+                {authError}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium"
+            >
+              Войти
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <Link
+              href="/"
+              className="text-blue-500 hover:text-blue-600 text-sm"
+            >
+              ← Вернуться на главную
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (loading) {
@@ -69,14 +142,22 @@ export default function AdminStudents() {
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-3xl font-bold text-gray-800">
-              Зарегистрированные студенты
+              📊 Зарегистрированные студенты
             </h1>
-            <Link
-              href="/"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              На главную
-            </Link>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setIsAuthenticated(false)}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
+              >
+                Выйти
+              </button>
+              <Link
+                href="/"
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+              >
+                На главную
+              </Link>
+            </div>
           </div>
 
           <div className="mb-4">

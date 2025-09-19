@@ -186,7 +186,6 @@ export default function AICreator() {
               <Link href="/vibe-coding" className="text-gray-600 hover:text-blue-500 transition-all duration-300 font-medium">Вайб кодинг</Link>
               <Link href="/ai-creator" className="text-blue-500 font-semibold">AI Creator</Link>
               <Link href="/ai-kids" className="text-gray-600 hover:text-blue-500 transition-all duration-300 font-medium">AI Kids</Link>
-              <Link href="/admin/students" className="text-yellow-600 hover:text-yellow-500 transition-all duration-300 font-medium">📊 Студенты</Link>
             </div>
 
             <button className="pastel-button text-white px-8 py-3 rounded-full font-semibold">

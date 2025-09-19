@@ -184,7 +184,6 @@ export default function AIKids() {
               <Link href="/vibe-coding" className="text-gray-300 hover:text-blue-400 transition-all duration-300 font-medium hover:glow-text">Вайб кодинг</Link>
               <Link href="/ai-creator" className="text-gray-300 hover:text-blue-400 transition-all duration-300 font-medium hover:glow-text">AI Creator</Link>
               <Link href="/ai-kids" className="text-blue-400 font-semibold glow-text">AI Kids</Link>
-              <Link href="/admin/students" className="text-yellow-400 hover:text-yellow-300 transition-all duration-300 font-medium hover:glow-text">📊 Студенты</Link>
             </div>
 
             <button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-3 rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg shadow-blue-500/30 glow-button">

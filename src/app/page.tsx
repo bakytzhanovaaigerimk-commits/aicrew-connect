@@ -10,6 +10,14 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    phone: '',
+    course: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState('')
 
   useEffect(() => {
     // Modern geometric background
@@ -108,6 +116,59 @@ export default function Home() {
     setActiveModal(null)
   }
 
+  const handleContactFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setContactForm(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitMessage('')
+
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: contactForm.name,
+          age: '18', // Default age for contact form
+          phone: contactForm.phone,
+          email: 'contact@form.local', // Default email for contact form
+          course: contactForm.course,
+          telegram: '',
+          additional_info: contactForm.message
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitMessage('Заявка отправлена успешно! Мы свяжемся с вами в ближайшее время.')
+        setContactForm({
+          name: '',
+          phone: '',
+          course: '',
+          message: ''
+        })
+        setTimeout(() => {
+          setSubmitMessage('')
+        }, 5000)
+      } else {
+        setSubmitMessage(data.error || 'Произошла ошибка при отправке заявки')
+      }
+    } catch (error) {
+      setSubmitMessage('Ошибка сети. Попробуйте позже.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 overflow-hidden">
       {/* Modern Background */}
@@ -145,9 +206,6 @@ export default function Home() {
               </a>
               <a href="/ai-kids" className="text-white/70 hover:text-white transition-all duration-300 font-medium hover:scale-105">
                 AI Kids
-              </a>
-              <a href="/admin/students" className="text-yellow-300/70 hover:text-yellow-300 transition-all duration-300 font-medium hover:scale-105">
-                📊 Студенты
               </a>
             </div>
 
@@ -375,38 +433,74 @@ export default function Home() {
             {/* Contact Form */}
             <div className="p-10 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10">
               <h3 className="text-3xl font-bold text-white mb-8">Записаться на курс</h3>
-              <form className="space-y-6">
+              <form onSubmit={handleContactSubmit} className="space-y-6">
                 <div>
                   <input
                     type="text"
+                    name="name"
+                    value={contactForm.name}
+                    onChange={handleContactFormChange}
                     placeholder="Ваше имя"
                     className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-white/50 focus:outline-none focus:border-blue-400 transition-colors backdrop-blur-xl"
+                    required
                   />
                 </div>
                 <div>
                   <input
                     type="tel"
+                    name="phone"
+                    value={contactForm.phone}
+                    onChange={handleContactFormChange}
                     placeholder="Телефон"
                     className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-white/50 focus:outline-none focus:border-blue-400 transition-colors backdrop-blur-xl"
+                    required
                   />
                 </div>
                 <div>
-                  <select className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-2xl text-white focus:outline-none focus:border-blue-400 transition-colors backdrop-blur-xl">
+                  <select
+                    name="course"
+                    value={contactForm.course}
+                    onChange={handleContactFormChange}
+                    className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-2xl text-white focus:outline-none focus:border-blue-400 transition-colors backdrop-blur-xl"
+                    required
+                  >
                     <option value="">Выберите курс</option>
-                    <option value="vibe-coding">Вайб Кодинг</option>
-                    <option value="ai-creator">AI Creator</option>
-                    <option value="ai-kids">AI Kids</option>
+                    <option value="Вайб Кодинг">Вайб Кодинг</option>
+                    <option value="AI Creator">AI Creator</option>
+                    <option value="AI Kids">AI Kids</option>
                   </select>
                 </div>
                 <div>
                   <textarea
+                    name="message"
+                    value={contactForm.message}
+                    onChange={handleContactFormChange}
                     placeholder="Сообщение"
                     rows={4}
                     className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-2xl text-white placeholder-white/50 focus:outline-none focus:border-blue-400 transition-colors resize-none backdrop-blur-xl"
                   ></textarea>
                 </div>
-                <button className="w-full py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-2xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105">
-                  Отправить заявку
+
+                {submitMessage && (
+                  <div className={`p-4 rounded-xl text-center font-medium ${
+                    submitMessage.includes('успешно')
+                      ? 'bg-green-100 text-green-700 border border-green-300'
+                      : 'bg-red-100 text-red-700 border border-red-300'
+                  }`}>
+                    {submitMessage}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full py-4 font-bold rounded-2xl transition-all duration-300 transform ${
+                    isSubmitting
+                      ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105'
+                  }`}
+                >
+                  {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
                 </button>
               </form>
             </div>
