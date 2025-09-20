@@ -310,7 +310,7 @@ export default function AICreator() {
                         className="w-full h-full object-cover"
                         controls
                         preload="metadata"
-                        poster={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='100%25' height='100%25' fill='%23${video.color.replace('#', '')}'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3E${encodeURIComponent(video.title)}%3C/text%3E%3C/svg%3E`}
+                        poster={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='100%25' height='100%25' fill='%23${video.color.replace('#', '')}'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3E${video.title.replace(/[<>&"']/g, '')}%3C/text%3E%3C/svg%3E`}
                       >
                         <source src={`/videos/${video.file}`} type="video/mp4" />
                         Ваш браузер не поддерживает видео.
