@@ -36,6 +36,7 @@ export default function AICreator() {
           name: formData.name,
           age: '18', // Default age for AI Creator
           phone: formData.phone,
+          email: 'aicreator@form.local', // Default email for AI Creator
           course: formData.course,
           telegram: '',
           additional_info: ''
@@ -117,7 +118,7 @@ export default function AICreator() {
       background: 'linear-gradient(135deg, #A7C7E7 0%, #B4E7CE 50%, #C7BEE7 100%)',
       backgroundColor: '#FAFAFA'
     }}>
-      <style>{`
+      <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
         * {
@@ -270,7 +271,7 @@ export default function AICreator() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Crystal Samurai Fashion */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -301,7 +302,7 @@ export default function AICreator() {
               </div>
 
               {/* AI Визуалы и Лого */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -332,7 +333,7 @@ export default function AICreator() {
               </div>
 
               {/* AI Аватар */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -363,7 +364,7 @@ export default function AICreator() {
               </div>
 
               {/* StarZ */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -651,7 +652,7 @@ export default function AICreator() {
         💬
       </a>
 
-      <style>{`
+      <style jsx>{`
         @keyframes pulse {
           0% {
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4), 0 2px 6px rgba(0,0,0,0.2);

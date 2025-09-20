@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react"
 import anime from "animejs/lib/anime.es.js"
 import Link from "next/link"
+import RegistrationModal from "@/components/RegistrationModal"
 
 export default function AICreator() {
   const backgroundRef = useRef<HTMLDivElement>(null)
@@ -12,6 +13,7 @@ export default function AICreator() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -36,6 +38,7 @@ export default function AICreator() {
           name: formData.name,
           age: '18', // Default age for AI Creator
           phone: formData.phone,
+          email: 'aicreator@form.local', // Default email for AI Creator
           course: formData.course,
           telegram: '',
           additional_info: ''
@@ -117,7 +120,7 @@ export default function AICreator() {
       background: 'linear-gradient(135deg, #A7C7E7 0%, #B4E7CE 50%, #C7BEE7 100%)',
       backgroundColor: '#FAFAFA'
     }}>
-      <style>{`
+      <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
         * {
@@ -189,7 +192,10 @@ export default function AICreator() {
               <Link href="/ai-kids" className="text-gray-600 hover:text-blue-500 transition-all duration-300 font-medium">AI Kids</Link>
             </div>
 
-            <button className="pastel-button text-white px-8 py-3 rounded-full font-semibold">
+            <button
+              onClick={() => setIsRegistrationModalOpen(true)}
+              className="pastel-button text-white px-8 py-3 rounded-full font-semibold"
+            >
               Записаться
             </button>
           </div>
@@ -270,7 +276,7 @@ export default function AICreator() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Crystal Samurai Fashion */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -301,7 +307,7 @@ export default function AICreator() {
               </div>
 
               {/* AI Визуалы и Лого */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -332,7 +338,7 @@ export default function AICreator() {
               </div>
 
               {/* AI Аватар */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -363,7 +369,7 @@ export default function AICreator() {
               </div>
 
               {/* StarZ */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -397,7 +403,10 @@ export default function AICreator() {
 
           {/* Call to Action */}
           <div className="text-center">
-            <button className="pastel-button text-white px-12 py-4 rounded-2xl font-bold text-lg">
+            <button
+              onClick={() => setIsRegistrationModalOpen(true)}
+              className="pastel-button text-white px-12 py-4 rounded-2xl font-bold text-lg"
+            >
               Создать свой проект
             </button>
           </div>
@@ -651,7 +660,7 @@ export default function AICreator() {
         💬
       </a>
 
-      <style>{`
+      <style jsx>{`
         @keyframes pulse {
           0% {
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4), 0 2px 6px rgba(0,0,0,0.2);
@@ -664,6 +673,13 @@ export default function AICreator() {
           }
         }
       `}</style>
+
+      {/* Registration Modal */}
+      <RegistrationModal
+        isOpen={isRegistrationModalOpen}
+        onClose={() => setIsRegistrationModalOpen(false)}
+        defaultCourse="AI Creator"
+      />
     </div>
   );
 }

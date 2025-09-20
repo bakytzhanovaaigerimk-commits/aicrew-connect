@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN || "8479942990:AAFw-fqhBWDXKffUSZ25G000VX7rpPL4d_I"
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID || "-8479942990" // Your group chat ID
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN || "8479942990:AAFm0fbmWzIDl2n-_twdPMcWcb-3R38uyfs"
+const CHAT_ID = process.env.TELEGRAM_CHAT_ID || "500852390" // Your group chat ID
 
 export async function sendTelegramNotification(message: string) {
   try {
@@ -34,18 +34,12 @@ export function formatStudentRegistration(studentData: {
   course: string
   telegram?: string
 }) {
-  const { name, age, phone, email, course, telegram } = studentData
+  const { name, phone, course } = studentData
 
   let message = `🎓 <b>Новая регистрация студента!</b>\n\n`
   message += `👤 <b>Имя:</b> ${name}\n`
-  message += `🎂 <b>Возраст:</b> ${age} лет\n`
   message += `📞 <b>Телефон:</b> ${phone}\n`
-  message += `✉️ <b>Email:</b> ${email}\n`
   message += `📚 <b>Курс:</b> ${course}\n`
-
-  if (telegram) {
-    message += `📱 <b>Telegram:</b> ${telegram}\n`
-  }
 
   message += `\n⏰ <b>Время регистрации:</b> ${new Date().toLocaleString('ru-RU', {
     timeZone: 'Asia/Almaty',

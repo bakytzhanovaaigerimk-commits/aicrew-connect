@@ -2,24 +2,23 @@
 import { useEffect, useRef, useState } from "react"
 import anime from "animejs/lib/anime.es.js"
 import Link from "next/link"
-import RegistrationModal from "@/components/RegistrationModal"
 
 export default function AIKids() {
   const backgroundRef = useRef<HTMLDivElement>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedCourse, setSelectedCourse] = useState('')
   const [formData, setFormData] = useState({
     name: '',
+    age: '',
     phone: '',
+    email: '',
+    telegram: '',
+    parent_name: '',
+    program: '',
+    tariff: '',
+    additional_info: '',
     course: 'AI Kids'
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
-
-  const handleOpenModal = (courseName: string) => {
-    setSelectedCourse(`AI Kids - ${courseName}`)
-    setIsModalOpen(true)
-  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -40,15 +39,7 @@ export default function AIKids() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          age: '10',
-          telegram: '',
-          parent_name: '',
-          program: '',
-          tariff: '',
-          additional_info: ''
-        }),
+        body: JSON.stringify(formData),
       })
 
       const data = await response.json()
@@ -57,7 +48,14 @@ export default function AIKids() {
         setSubmitMessage('Регистрация прошла успешно! Мы свяжемся с вами в ближайшее время.')
         setFormData({
           name: '',
+          age: '',
           phone: '',
+          email: '',
+          telegram: '',
+          parent_name: '',
+          program: '',
+          tariff: '',
+          additional_info: '',
           course: 'AI Kids'
         })
       } else {
@@ -188,9 +186,7 @@ export default function AIKids() {
               <Link href="/ai-kids" className="text-blue-400 font-semibold glow-text">AI Kids</Link>
             </div>
 
-            <button
-              onClick={() => handleOpenModal('Общий курс')}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-3 rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg shadow-blue-500/30 glow-button">
+            <button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-3 rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg shadow-blue-500/30 glow-button">
               Записаться
             </button>
           </div>
@@ -527,9 +523,7 @@ export default function AIKids() {
                 <li className="flex items-center"><span className="text-emerald-400 mr-3">▸</span> Фотоотчёт для родителей</li>
                 <li className="flex items-center"><span className="text-emerald-400 mr-3">▸</span> Сертификат об окончании</li>
               </ul>
-              <button
-                onClick={() => handleOpenModal('Базовый')}
-                className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-2xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg shadow-emerald-500/30">
+              <button className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-2xl hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 shadow-lg shadow-emerald-500/30">
                 Выбрать план
               </button>
             </div>
@@ -552,9 +546,7 @@ export default function AIKids() {
                 <li className="flex items-center"><span className="text-blue-400 mr-3">▸</span> Презентация проекта</li>
                 <li className="flex items-center"><span className="text-blue-400 mr-3">▸</span> Дополнительные материалы</li>
               </ul>
-              <button
-                onClick={() => handleOpenModal('Стандарт')}
-                className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-2xl hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-lg shadow-blue-500/30">
+              <button className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-2xl hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-lg shadow-blue-500/30">
                 Выбрать план
               </button>
             </div>
@@ -576,9 +568,7 @@ export default function AIKids() {
                 <li className="flex items-center"><span className="text-purple-400 mr-3">▸</span> Персональный трек обучения</li>
                 <li className="flex items-center"><span className="text-purple-400 mr-3">▸</span> 1-на-1 сессии</li>
               </ul>
-              <button
-                onClick={() => handleOpenModal('Премиум')}
-                className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg shadow-purple-500/30">
+              <button className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-2xl hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg shadow-purple-500/30">
                 Выбрать план
               </button>
             </div>
@@ -627,6 +617,54 @@ export default function AIKids() {
                 </div>
 
                 <div>
+                  <label className="block text-white font-medium mb-2">🎂 Возраст ребенка</label>
+                  <select
+                    name="age"
+                    value={formData.age}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl border border-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-700/50 text-white"
+                    required
+                  >
+                    <option value="">Выберите возраст</option>
+                    <option value="8">8 лет</option>
+                    <option value="9">9 лет</option>
+                    <option value="10">10 лет</option>
+                    <option value="11">11 лет</option>
+                    <option value="12">12 лет</option>
+                    <option value="13">13 лет</option>
+                    <option value="14">14 лет</option>
+                    <option value="15">15 лет</option>
+                    <option value="16">16 лет</option>
+                    <option value="17">17 лет</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white font-medium mb-2">👨‍👩‍👧‍👦 Имя родителя</label>
+                  <input
+                    type="text"
+                    name="parent_name"
+                    value={formData.parent_name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl border border-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-700/50 text-white placeholder-gray-400"
+                    placeholder="Ваше имя"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white font-medium mb-2">📱 Telegram (@username)</label>
+                  <input
+                    type="text"
+                    name="telegram"
+                    value={formData.telegram}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl border border-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-700/50 text-white placeholder-gray-400"
+                    placeholder="@username"
+                  />
+                </div>
+
+                <div>
                   <label className="block text-white font-medium mb-2">📞 Телефон</label>
                   <input
                     type="tel"
@@ -637,6 +675,59 @@ export default function AIKids() {
                     placeholder="+7 (___) ___-__-__"
                     required
                   />
+                </div>
+
+                <div>
+                  <label className="block text-white font-medium mb-2">✉️ Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl border border-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-700/50 text-white placeholder-gray-400"
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white font-medium mb-2">🎯 Выберите программу</label>
+                  <select
+                    name="program"
+                    value={formData.program}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl border border-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-700/50 text-white"
+                  >
+                    <option value="">Выберите программу</option>
+                    <option value="8-12">8-12 лет: Юные исследователи</option>
+                    <option value="12-17">12-17 лет: Цифровые новаторы</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white font-medium mb-2">💎 Выберите тариф</label>
+                  <select
+                    name="tariff"
+                    value={formData.tariff}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl border border-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-700/50 text-white"
+                  >
+                    <option value="">Выберите тариф</option>
+                    <option value="basic">Базовый — 45 000 ₸/месяц</option>
+                    <option value="standard">Стандарт — 60 000 ₸/месяц</option>
+                    <option value="premium">Премиум — 95 000 ₸/месяц</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-white font-medium mb-2">💬 Дополнительная информация</label>
+                  <textarea
+                    name="additional_info"
+                    value={formData.additional_info}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-xl border border-blue-500/30 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-slate-700/50 text-white placeholder-gray-400 h-24 resize-none"
+                    placeholder="Интересы ребенка, опыт с компьютером, особые пожелания..."
+                  ></textarea>
                 </div>
 
                 {submitMessage && (
@@ -650,11 +741,15 @@ export default function AIKids() {
                 )}
 
                 <button
-                  type="button"
-                  onClick={() => handleOpenModal('Регистрация')}
-                  className="w-full py-4 rounded-2xl font-bold text-xl transition-all duration-300 shadow-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 shadow-blue-500/30 glow-button"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full py-4 rounded-2xl font-bold text-xl transition-all duration-300 shadow-xl ${
+                    isSubmitting
+                      ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600 shadow-blue-500/30 glow-button'
+                  }`}
                 >
-                  🌟 ЗАПИСАТЬ РЕБЕНКА 🌟
+                  {isSubmitting ? 'Отправка...' : '🌟 ЗАПИСАТЬ РЕБЕНКА 🌟'}
                 </button>
               </form>
             </div>
@@ -771,13 +866,6 @@ export default function AIKids() {
           }
         }
       `}</style>
-
-      {/* Registration Modal */}
-      <RegistrationModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        defaultCourse={selectedCourse}
-      />
     </div>
   );
 }

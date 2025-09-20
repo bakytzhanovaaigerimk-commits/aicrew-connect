@@ -39,6 +39,7 @@ export default function RegistrationModal({ isOpen, onClose, defaultCourse = "О
           name: formData.name,
           age: '18', // Default age
           phone: formData.phone,
+          email: `modal@${formData.course.toLowerCase().replace(/\s+/g, '')}.local`, // Default email
           course: formData.course,
           telegram: '',
           additional_info: ''
@@ -109,22 +110,6 @@ export default function RegistrationModal({ isOpen, onClose, defaultCourse = "О
                 placeholder="+7 (___) ___-__-__"
                 required
               />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">🎯 Курс</label>
-              <select
-                name="course"
-                value={formData.course}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                required
-              >
-                <option value="Общий курс">Общий курс</option>
-                <option value="Вайб Кодинг">Вайб Кодинг</option>
-                <option value="AI Creator">AI Creator</option>
-                <option value="AI Kids">AI Kids</option>
-              </select>
             </div>
 
             {submitMessage && (

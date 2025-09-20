@@ -36,6 +36,7 @@ export default function AICreator() {
           name: formData.name,
           age: '18', // Default age for AI Creator
           phone: formData.phone,
+          email: 'aicreator@form.local', // Default email for AI Creator
           course: formData.course,
           telegram: '',
           additional_info: ''
@@ -117,7 +118,7 @@ export default function AICreator() {
       background: 'linear-gradient(135deg, #A7C7E7 0%, #B4E7CE 50%, #C7BEE7 100%)',
       backgroundColor: '#FAFAFA'
     }}>
-      <style>{`
+      <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
         * {
@@ -270,7 +271,7 @@ export default function AICreator() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Crystal Samurai Fashion */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -301,7 +302,7 @@ export default function AICreator() {
               </div>
 
               {/* AI Визуалы и Лого */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -332,7 +333,7 @@ export default function AICreator() {
               </div>
 
               {/* AI Аватар */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -363,7 +364,7 @@ export default function AICreator() {
               </div>
 
               {/* StarZ */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
+              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl opacity-0">
                 <div className="video-container aspect-video mb-4 relative">
                   <video
                     className="w-full h-full object-cover rounded-2xl"
@@ -513,7 +514,7 @@ export default function AICreator() {
 
       {/* Registration Section */}
       <section className="relative z-10 py-20 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-7xl font-bold mb-8">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-400 to-purple-400">
@@ -549,9 +550,9 @@ export default function AICreator() {
             </div>
           </div>
 
-          <div className="flex justify-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Registration Form */}
-            <div className="pastel-card rounded-3xl p-8 shadow-xl max-w-md w-full">
+            <div className="pastel-card rounded-3xl p-8 shadow-xl">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-gray-600 font-medium mb-2">✨ Твоё имя</label>
@@ -602,6 +603,48 @@ export default function AICreator() {
                 </button>
               </form>
             </div>
+
+            {/* Pricing Card */}
+            <div className="text-center">
+              <div className="pastel-card rounded-3xl p-8 shadow-xl relative overflow-hidden">
+                <div className="absolute top-4 right-4 bg-red-400 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  -30%
+                </div>
+                <div className="absolute top-4 left-4 bg-orange-400 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  🔥 Акция до конца месяца!
+                </div>
+
+                <div className="mt-8 mb-8">
+                  <div className="text-gray-400 line-through text-2xl mb-2">$500</div>
+                  <div className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-teal-400 mb-4">
+                    $350
+                  </div>
+                </div>
+
+                <button className="w-full pastel-button text-white py-4 rounded-2xl font-bold text-xl mb-6">
+                  🌟 СТАТЬ AI CREATOR ЗА $350 🌟
+                </button>
+
+                <div className="space-y-3 text-left">
+                  <div className="flex items-start">
+                    <span className="text-green-400 mr-3 mt-1 text-lg">✨</span>
+                    <span className="text-gray-600">30 дней гарантии возврата</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="text-blue-400 mr-3 mt-1 text-lg">🎯</span>
+                    <span className="text-gray-600">Персональное менторство включено</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="text-purple-400 mr-3 mt-1 text-lg">🚀</span>
+                    <span className="text-gray-600">Доступ к закрытому сообществу AI Creators</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="text-teal-400 mr-3 mt-1 text-lg">📅</span>
+                    <span className="text-gray-600">Пожизненный доступ к курсу</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -651,7 +694,7 @@ export default function AICreator() {
         💬
       </a>
 
-      <style>{`
+      <style jsx>{`
         @keyframes pulse {
           0% {
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4), 0 2px 6px rgba(0,0,0,0.2);

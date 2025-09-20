@@ -1,10 +1,22 @@
 "use client"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import anime from "animejs/lib/anime.es.js"
 import Link from "next/link"
+import RegistrationModal from "@/components/RegistrationModal"
 
 export default function VibeCoding() {
   const backgroundRef = useRef<HTMLDivElement>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState('')
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: ''
+  })
+
+  const handlePlanSelect = (plan: string) => {
+    setSelectedPlan(`Вайб Кодинг - ${plan}`)
+    setIsModalOpen(true)
+  }
 
   useEffect(() => {
     // Cyberpunk background effects
@@ -119,7 +131,9 @@ export default function VibeCoding() {
               </Link>
             </div>
 
-            <button className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black px-8 py-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 font-bold">
+            <button
+              onClick={() => handlePlanSelect('Общий курс')}
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 text-black px-8 py-3 rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 font-bold">
               ЗАПИСАТЬСЯ
             </button>
           </div>
@@ -176,7 +190,9 @@ export default function VibeCoding() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="group relative px-12 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xl rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/30">
+              <button
+                onClick={() => handlePlanSelect('Трансформация')}
+                className="group relative px-12 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xl rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/30">
                 <span className="relative z-10">&gt; ЗАПУСТИТЬ ТРАНСФОРМАЦИЮ</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </button>
@@ -392,64 +408,171 @@ export default function VibeCoding() {
         </div>
       </section>
 
-      {/* Registration */}
+      {/* Pricing Plans */}
       <section className="relative z-10 py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-xl rounded-lg border border-cyan-500/30 p-10">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-black text-white mb-6 font-mono">
-                &gt; INITIALIZE_TRANSFORMATION
-              </h2>
-              <p className="text-xl text-cyan-300 font-mono">ГОТОВ ВОЙТИ В БУДУЩЕЕ?</p>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 font-mono">
+              &gt; CHOOSE_YOUR_PATH
+            </h2>
+            <p className="text-xl text-cyan-300 font-mono">ВЫБЕРИ СВОЙ ПЛАН ОБУЧЕНИЯ</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Базовый план */}
+            <div className="section-item p-8 bg-blue-500/10 backdrop-blur-xl rounded-lg border border-blue-500/30 hover:border-blue-400 transition-all duration-300">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-2 font-mono">Базовый</h3>
+                <div className="text-4xl font-black text-cyan-400 mb-6 font-mono">
+                  45 000 ₸
+                  <span className="text-lg text-cyan-300 block">/ месяц</span>
+                </div>
+              </div>
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center text-cyan-300 font-mono">
+                  <span className="text-cyan-400 mr-2">▸</span>
+                  Групповые занятия
+                </div>
+                <div className="flex items-center text-cyan-300 font-mono">
+                  <span className="text-cyan-400 mr-2">▸</span>
+                  Материалы курса
+                </div>
+                <div className="flex items-center text-cyan-300 font-mono">
+                  <span className="text-cyan-400 mr-2">▸</span>
+                  Фотоотчёт для родителей
+                </div>
+                <div className="flex items-center text-cyan-300 font-mono">
+                  <span className="text-cyan-400 mr-2">▸</span>
+                  Сертификат об окончании
+                </div>
+              </div>
+              <button
+                onClick={() => handlePlanSelect('Базовый')}
+                className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 font-mono"
+              >
+                Выбрать план
+              </button>
             </div>
 
-            <form className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <label className="block text-cyan-300 font-mono mb-3">&gt; ENTER_NAME:</label>
-                  <input
-                    type="text"
-                    className="w-full px-6 py-4 bg-black/50 border border-cyan-500/30 rounded-lg text-cyan-300 placeholder-cyan-600 focus:outline-none focus:border-cyan-400 transition-colors font-mono"
-                    placeholder="your_name.exe"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-cyan-300 font-mono mb-3">&gt; TELEGRAM_ID:</label>
-                  <input
-                    type="text"
-                    className="w-full px-6 py-4 bg-black/50 border border-cyan-500/30 rounded-lg text-cyan-300 placeholder-cyan-600 focus:outline-none focus:border-cyan-400 transition-colors font-mono"
-                    placeholder="@username"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-cyan-300 font-mono mb-3">&gt; EMAIL_ADDRESS:</label>
-                  <input
-                    type="email"
-                    className="w-full px-6 py-4 bg-black/50 border border-cyan-500/30 rounded-lg text-cyan-300 placeholder-cyan-600 focus:outline-none focus:border-cyan-400 transition-colors font-mono"
-                    placeholder="user@domain.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-cyan-300 font-mono mb-3">&gt; SKILL_LEVEL:</label>
-                  <select className="w-full px-6 py-4 bg-black/50 border border-cyan-500/30 rounded-lg text-cyan-300 focus:outline-none focus:border-cyan-400 transition-colors font-mono">
-                    <option value="">SELECT_LEVEL</option>
-                    <option value="beginner">BEGINNER.lvl</option>
-                    <option value="intermediate">INTERMEDIATE.lvl</option>
-                    <option value="advanced">ADVANCED.lvl</option>
-                  </select>
+            {/* Стандарт план */}
+            <div className="section-item p-8 bg-purple-500/10 backdrop-blur-xl rounded-lg border border-purple-500/30 hover:border-purple-400 transition-all duration-300 relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-bold font-mono">
+                  Популярный
                 </div>
               </div>
-
-              <button className="w-full py-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xl rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 font-mono">
-                &gt; EXECUTE TRANSFORMATION FOR $175
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-2 font-mono">Стандарт</h3>
+                <div className="text-4xl font-black text-purple-400 mb-6 font-mono">
+                  60 000 ₸
+                  <span className="text-lg text-purple-300 block">/ месяц</span>
+                </div>
+              </div>
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center text-purple-300 font-mono">
+                  <span className="text-purple-400 mr-2">▸</span>
+                  Всё из пакета «Базовый»
+                </div>
+                <div className="flex items-center text-purple-300 font-mono">
+                  <span className="text-purple-400 mr-2">▸</span>
+                  Индивидуальный проект
+                </div>
+                <div className="flex items-center text-purple-300 font-mono">
+                  <span className="text-purple-400 mr-2">▸</span>
+                  Презентация проекта
+                </div>
+                <div className="flex items-center text-purple-300 font-mono">
+                  <span className="text-purple-400 mr-2">▸</span>
+                  Дополнительные материалы
+                </div>
+              </div>
+              <button
+                onClick={() => handlePlanSelect('Стандарт')}
+                className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold rounded-lg hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105 font-mono"
+              >
+                Выбрать план
               </button>
+            </div>
 
-              <div className="text-center text-cyan-400 font-mono text-sm">
-                ✨ 30_days_guarantee • 🎯 personal_mentor • 🚀 usa_employment
+            {/* Премиум план */}
+            <div className="section-item p-8 bg-yellow-500/10 backdrop-blur-xl rounded-lg border border-yellow-500/30 hover:border-yellow-400 transition-all duration-300">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-2 font-mono">Премиум</h3>
+                <div className="text-4xl font-black text-yellow-400 mb-6 font-mono">
+                  95 000 ₸
+                  <span className="text-lg text-yellow-300 block">/ месяц</span>
+                </div>
               </div>
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center text-yellow-300 font-mono">
+                  <span className="text-yellow-400 mr-2">▸</span>
+                  Всё из пакета «Стандарт»
+                </div>
+                <div className="flex items-center text-yellow-300 font-mono">
+                  <span className="text-yellow-400 mr-2">▸</span>
+                  Индивидуальный ментор
+                </div>
+                <div className="flex items-center text-yellow-300 font-mono">
+                  <span className="text-yellow-400 mr-2">▸</span>
+                  Персональный трек обучения
+                </div>
+                <div className="flex items-center text-yellow-300 font-mono">
+                  <span className="text-yellow-400 mr-2">▸</span>
+                  1-на-1 сессии
+                </div>
+              </div>
+              <button
+                onClick={() => handlePlanSelect('Премиум')}
+                className="w-full py-4 bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-bold rounded-lg hover:shadow-lg hover:shadow-yellow-500/30 transition-all duration-300 transform hover:scale-105 font-mono"
+              >
+                Выбрать план
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Registration */}
+      <section className="relative z-10 py-24 px-6 bg-black/20">
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-xl rounded-lg border border-cyan-500/30 p-10">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-4 font-mono">
+                &gt; БЫСТРАЯ ЗАЯВКА
+              </h2>
+              <p className="text-lg text-cyan-300 font-mono">ОСТАВЬ КОНТАКТЫ И МЫ СВЯЖЕМСЯ</p>
+            </div>
+
+            <form className="space-y-6">
+              <div>
+                <label className="block text-cyan-300 font-mono mb-3">&gt; ИМЯ:</label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  className="w-full px-6 py-4 bg-black/50 border border-cyan-500/30 rounded-lg text-cyan-300 placeholder-cyan-600 focus:outline-none focus:border-cyan-400 transition-colors font-mono"
+                  placeholder="Ваше имя"
+                />
+              </div>
+
+              <div>
+                <label className="block text-cyan-300 font-mono mb-3">&gt; ТЕЛЕФОН:</label>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  className="w-full px-6 py-4 bg-black/50 border border-cyan-500/30 rounded-lg text-cyan-300 placeholder-cyan-600 focus:outline-none focus:border-cyan-400 transition-colors font-mono"
+                  placeholder="+7 ___ ___ ____"
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => handlePlanSelect('Быстрая заявка')}
+                className="w-full py-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xl rounded-lg hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 transform hover:scale-105 font-mono"
+              >
+                &gt; ОТПРАВИТЬ ЗАЯВКУ
+              </button>
             </form>
           </div>
         </div>
@@ -507,6 +630,13 @@ export default function VibeCoding() {
           }
         }
       `}</style>
+
+      {/* Registration Modal */}
+      <RegistrationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        defaultCourse={selectedPlan || "Вайб Кодинг"}
+      />
     </div>
   );
 }
