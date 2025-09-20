@@ -294,129 +294,32 @@ export default function AICreator() {
             {/* Videos Tab */}
             {activeTab === 'videos' && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Crystal Samurai Fashion */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
-                <div className="video-container aspect-video mb-4 relative">
-                  <video
-                    className="w-full h-full object-cover rounded-2xl"
-                    controls
-                    preload="metadata"
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='100%25' height='100%25' fill='%23A7C7E7'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3ECrystal Samurai%3C/text%3E%3Ctext x='50%25' y='60%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='12' font-family='Arial'%3EFashion Shoot%3C/text%3E%3C/svg%3E"
-                    onError={(e) => {
-                      const target = e.target as HTMLVideoElement;
-                      target.style.display = 'none';
-                      const fallback = target.nextElementSibling as HTMLElement;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  >
-                    <source src="/videos/Crystal_Samurai_Fashion_Shoot.mp4" type="video/mp4" />
-                    Ваш браузер не поддерживает видео.
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-200/90 to-purple-300/90 rounded-2xl flex items-center justify-center" style={{display: 'none'}}>
-                    <div className="text-center text-white">
-                      <svg className="w-16 h-16 mx-auto mb-3 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                      <div className="text-sm font-semibold">Видео будет загружено</div>
+                {[
+                  { file: 'Crystal_Samurai_Fashion_Shoot.mp4', title: 'Crystal Samurai Fashion', desc: 'Модная съемка с AI', color: '#A7C7E7' },
+                  { file: 'AI_Generated_Visuals_and_Logo_Emergence.mp4', title: 'AI Визуалы и Лого', desc: 'Создание брендинга с ИИ', color: '#B4E7CE' },
+                  { file: 'Quick_Avatar_Video.mp4', title: 'Quick Avatar', desc: 'Создание персонального аватара', color: '#FFCCCB' },
+                  { file: 'Hailuo_Video_422285314604769283.mp4', title: 'Hailuo AI Video', desc: 'AI видео генерация', color: '#FFB6C1' },
+                  { file: 'Test Avatar.mp4', title: 'Test Avatar', desc: 'Демо персонажа', color: '#FFF6A3' },
+                  { file: 'IMG_1452.MP4', title: 'AI Creation', desc: 'Творческий процесс', color: '#E6E6FA' },
+                  { file: 'video_d693c21df5c18c9dae61b6fcfda2bcdd.mp4', title: 'AI Process', desc: 'Процесс создания', color: '#F0E68C' },
+                  { file: 'Бабушка_против_Гопника_Mortal_Kombat.mp4', title: 'Mortal Kombat', desc: 'Эпическая битва с ИИ', color: '#FF6347' }
+                ].map((video, index) => (
+                  <div key={index} className="group feature-item pastel-card rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <div className="video-container aspect-video mb-4 relative overflow-hidden rounded-2xl">
+                      <video
+                        className="w-full h-full object-cover"
+                        controls
+                        preload="metadata"
+                        poster={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='100%25' height='100%25' fill='%23${video.color.replace('#', '')}'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3E${encodeURIComponent(video.title)}%3C/text%3E%3C/svg%3E`}
+                      >
+                        <source src={`/videos/${video.file}`} type="video/mp4" />
+                        Ваш браузер не поддерживает видео.
+                      </video>
                     </div>
+                    <h4 className="text-xl font-bold text-gray-700 mb-2 group-hover:text-purple-600 transition-colors">{video.title}</h4>
+                    <p className="text-gray-500">{video.desc}</p>
                   </div>
-                </div>
-                <h4 className="text-lg font-bold text-gray-700 mb-2">Crystal Samurai Fashion</h4>
-                <p className="text-gray-500 text-sm">Модная съемка с AI</p>
-              </div>
-
-              {/* AI Визуалы и Лого */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
-                <div className="video-container aspect-video mb-4 relative">
-                  <video
-                    className="w-full h-full object-cover rounded-2xl"
-                    controls
-                    preload="metadata"
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='100%25' height='100%25' fill='%23B4E7CE'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='14' font-family='Arial'%3EAI Визуалы%3C/text%3E%3Ctext x='50%25' y='60%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='12' font-family='Arial'%3Eи Лого%3C/text%3E%3C/svg%3E"
-                    onError={(e) => {
-                      const target = e.target as HTMLVideoElement;
-                      target.style.display = 'none';
-                      const fallback = target.nextElementSibling as HTMLElement;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  >
-                    <source src="/videos/AI_Generated_Visuals_and_Logo_Emergence.mp4" type="video/mp4" />
-                    Ваш браузер не поддерживает видео.
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-br from-teal-200/90 to-green-300/90 rounded-2xl flex items-center justify-center" style={{display: 'none'}}>
-                    <div className="text-center text-white">
-                      <svg className="w-16 h-16 mx-auto mb-3 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                      <div className="text-sm font-semibold">Видео будет загружено</div>
-                    </div>
-                  </div>
-                </div>
-                <h4 className="text-lg font-bold text-gray-700 mb-2">AI Визуалы и Лого</h4>
-                <p className="text-gray-500 text-sm">Брендинг с ИИ</p>
-              </div>
-
-              {/* AI Аватар */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
-                <div className="video-container aspect-video mb-4 relative">
-                  <video
-                    className="w-full h-full object-cover rounded-2xl"
-                    controls
-                    preload="metadata"
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='100%25' height='100%25' fill='%23C7BEE7'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-family='Arial'%3EAI Аватар%3C/text%3E%3Ctext x='50%25' y='60%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='12' font-family='Arial'%3EПерсонаж%3C/text%3E%3C/svg%3E"
-                    onError={(e) => {
-                      const target = e.target as HTMLVideoElement;
-                      target.style.display = 'none';
-                      const fallback = target.nextElementSibling as HTMLElement;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  >
-                    <source src="/videos/Quick_Avatar_Video.mp4" type="video/mp4" />
-                    Ваш браузер не поддерживает видео.
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-200/90 to-pink-300/90 rounded-2xl flex items-center justify-center" style={{display: 'none'}}>
-                    <div className="text-center text-white">
-                      <svg className="w-16 h-16 mx-auto mb-3 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                      <div className="text-sm font-semibold">Видео будет загружено</div>
-                    </div>
-                  </div>
-                </div>
-                <h4 className="text-lg font-bold text-gray-700 mb-2">AI Аватар</h4>
-                <p className="text-gray-500 text-sm">Персональный персонаж</p>
-              </div>
-
-              {/* StarZ */}
-              <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
-                <div className="video-container aspect-video mb-4 relative">
-                  <video
-                    className="w-full h-full object-cover rounded-2xl"
-                    controls
-                    preload="metadata"
-                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 225'%3E%3Crect width='100%25' height='100%25' fill='%23FFF6A3'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='%23333' font-size='20' font-family='Arial'%3EStarZ%3C/text%3E%3Ctext x='50%25' y='60%25' dominant-baseline='middle' text-anchor='middle' fill='%23333' font-size='12' font-family='Arial'%3EАнимация%3C/text%3E%3C/svg%3E"
-                    onError={(e) => {
-                      const target = e.target as HTMLVideoElement;
-                      target.style.display = 'none';
-                      const fallback = target.nextElementSibling as HTMLElement;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  >
-                    <source src="/videos/starZ.mp4" type="video/mp4" />
-                    Ваш браузер не поддерживает видео.
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-200/90 to-orange-300/90 rounded-2xl flex items-center justify-center" style={{display: 'none'}}>
-                    <div className="text-center text-white">
-                      <svg className="w-16 h-16 mx-auto mb-3 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                      <div className="text-sm font-semibold">Видео будет загружено</div>
-                    </div>
-                  </div>
-                </div>
-                <h4 className="text-lg font-bold text-gray-700 mb-2">StarZ</h4>
-                <p className="text-gray-500 text-sm">Космическая анимация</p>
-              </div>
+                ))}
               </div>
             )}
 
