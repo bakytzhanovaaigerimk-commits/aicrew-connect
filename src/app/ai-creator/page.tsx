@@ -12,6 +12,7 @@ export default function AICreator() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [activeTab, setActiveTab] = useState('videos')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -263,12 +264,36 @@ export default function AICreator() {
             </p>
           </div>
 
+          {/* Portfolio Tabs */}
           <div className="mb-12">
-            <h3 className="text-2xl font-bold text-purple-400 mb-8 flex items-center">
-              <span className="mr-3">🎬</span> Видео Портфолио
-            </h3>
+            <div className="flex justify-center mb-8">
+              <div className="flex bg-white rounded-2xl p-2 shadow-lg">
+                <button
+                  onClick={() => setActiveTab('videos')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    activeTab === 'videos'
+                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  🎬 Видео Портфолио
+                </button>
+                <button
+                  onClick={() => setActiveTab('photos')}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    activeTab === 'photos'
+                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  📸 Фото Галерея
+                </button>
+              </div>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Videos Tab */}
+            {activeTab === 'videos' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Crystal Samurai Fashion */}
               <div className="feature-item pastel-card rounded-3xl p-6 shadow-xl">
                 <div className="video-container aspect-video mb-4 relative">
@@ -392,13 +417,36 @@ export default function AICreator() {
                 <h4 className="text-lg font-bold text-gray-700 mb-2">StarZ</h4>
                 <p className="text-gray-500 text-sm">Космическая анимация</p>
               </div>
-            </div>
+              </div>
+            )}
+
+            {/* Photos Tab */}
+            {activeTab === 'photos' && (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {[...Array(12)].map((_, index) => (
+                  <div key={index} className="group feature-item pastel-card rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    <div className="aspect-square mb-3 relative overflow-hidden rounded-xl">
+                      <img
+                        src={`/фото/photo_2025-09-16_14-0${index < 6 ? '0' : '1'}-${30 + (index * 5)}.jpg`}
+                        alt={`AI Generated Art ${index + 1}`}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='100%25' height='100%25' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' fill='%23666' font-size='16' font-family='Arial'%3EAI Art%3C/text%3E%3Ctext x='50%25' y='60%25' dominant-baseline='middle' text-anchor='middle' fill='%23666' font-size='12' font-family='Arial'%3E${index + 1}%3C/text%3E%3C/svg%3E`;
+                        }}
+                      />
+                    </div>
+                    <h4 className="text-sm font-semibold text-gray-700 group-hover:text-purple-600 transition-colors">AI Art #{index + 1}</h4>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Call to Action */}
           <div className="text-center">
-            <button className="pastel-button text-white px-12 py-4 rounded-2xl font-bold text-lg">
-              Создать свой проект
+            <button className="pastel-button text-white px-12 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform duration-300">
+              🚀 Создать свой проект
             </button>
           </div>
         </div>
