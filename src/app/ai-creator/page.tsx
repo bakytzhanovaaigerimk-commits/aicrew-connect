@@ -423,11 +423,28 @@ export default function AICreator() {
             {/* Photos Tab */}
             {activeTab === 'photos' && (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {[...Array(12)].map((_, index) => (
+                {[
+                  'photo_2025-09-16_14-00-36.jpg',
+                  'photo_2025-09-16_14-00-37.jpg',
+                  'photo_2025-09-16_14-00-40.jpg',
+                  'photo_2025-09-16_14-00-41.jpg',
+                  'photo_2025-09-16_14-00-42.jpg',
+                  'photo_2025-09-16_14-00-43.jpg',
+                  'photo_2025-09-16_14-00-47.jpg',
+                  'photo_2025-09-16_14-00-48.jpg',
+                  'photo_2025-09-16_14-01-30.jpg',
+                  'photo_2025-09-16_14-01-31.jpg',
+                  'photo_2025-09-16_14-01-34.jpg',
+                  'photo_2025-09-16_14-01-35.jpg',
+                  'photo_2025-09-16_14-01-36.jpg',
+                  'photo_2025-09-16_14-01-55.jpg',
+                  'photo_2025-09-16_14-01-58.jpg',
+                  'photo_2025-09-16_14-01-59.jpg'
+                ].map((filename, index) => (
                   <div key={index} className="group feature-item pastel-card rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                     <div className="aspect-square mb-3 relative overflow-hidden rounded-xl">
                       <img
-                        src={`/фото/photo_2025-09-16_14-0${index < 6 ? '0' : '1'}-${30 + (index * 5)}.jpg`}
+                        src={`/photos/${filename}`}
                         alt={`AI Generated Art ${index + 1}`}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         onError={(e) => {
