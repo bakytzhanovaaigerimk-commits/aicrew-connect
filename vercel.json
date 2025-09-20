@@ -9,6 +9,9 @@
   ],
   "regions": ["iad1"],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "DATABASE_URL": "postgresql://neondb_owner:npg_xhHMfZ6Iz8dL@ep-morning-tooth-agnusonk-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
+    "TELEGRAM_TOKEN": "8479942990:AAFm0fbmWzIDl2n-_twdPMcWcb-3R38uyfs",
+    "TELEGRAM_CHAT_ID": "500852390"
   }
 }
